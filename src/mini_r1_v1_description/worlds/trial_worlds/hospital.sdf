@@ -1,0 +1,659 @@
+<?xml version="1.0"?>
+
+<sdf version="1.6">
+  <world name="hospital_world">
+
+    <!-- ====================================================== -->
+    <!--  REQUIRED PLUGINS                                       -->
+    <!-- ====================================================== -->
+    <plugin filename="ignition-gazebo-physics-system"
+            name="ignition::gazebo::systems::Physics"/>
+    <plugin filename="ignition-gazebo-user-commands-system"
+            name="ignition::gazebo::systems::UserCommands"/>
+    <plugin filename="ignition-gazebo-scene-broadcaster-system"
+            name="ignition::gazebo::systems::SceneBroadcaster"/>
+    <plugin filename="ignition-gazebo-sensors-system"
+            name="ignition::gazebo::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <!-- ====================================================== -->
+    <!--  LIGHTING                                               -->
+    <!-- ====================================================== -->
+    <light name="sun" type="directional">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 20 0 0 0</pose>
+      <diffuse>0.9 0.9 0.9 1</diffuse>
+      <specular>0.3 0.3 0.3 1</specular>
+      <direction>-0.5 0.2 -0.9</direction>
+    </light>
+
+    <!-- Overhead hospital-style lighting strips -->
+    <light name="light_corridor" type="point">
+      <pose>-5 0 3.5 0 0 0</pose>
+      <diffuse>1 1 0.95 1</diffuse>
+      <specular>0.1 0.1 0.1 1</specular>
+      <attenuation><range>12</range><linear>0.1</linear></attenuation>
+    </light>
+    <light name="light_intersection" type="point">
+      <pose>0 0 3.5 0 0 0</pose>
+      <diffuse>1 1 0.95 1</diffuse>
+      <specular>0.1 0.1 0.1 1</specular>
+      <attenuation><range>12</range><linear>0.1</linear></attenuation>
+    </light>
+    <light name="light_maze" type="point">
+      <pose>6 4 3.5 0 0 0</pose>
+      <diffuse>1 1 0.9 1</diffuse>
+      <specular>0.1 0.1 0.1 1</specular>
+      <attenuation><range>10</range><linear>0.15</linear></attenuation>
+    </light>
+
+    <!-- ====================================================== -->
+    <!--  GROUND PLANE                                           -->
+    <!-- ====================================================== -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><plane><normal>0 0 1</normal><size>60 40</size></plane></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><plane><normal>0 0 1</normal><size>60 40</size></plane></geometry>
+          <material>
+            <ambient>0.85 0.85 0.85 1</ambient>
+            <diffuse>0.85 0.85 0.85 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ====================================================== -->
+    <!--  MACRO: WALL helper (used repeatedly below)            -->
+    <!--  Each wall: static box, white hospital colour          -->
+    <!-- ====================================================== -->
+
+    <!-- ============================================================ -->
+    <!--  ZONE 0 — START ZONE   (x: -16 to -10, y: -3 to 3)          -->
+    <!--  Open room, robot spawns at (-14, 0, 0.07)                   -->
+    <!-- ============================================================ -->
+
+    <!-- South wall -->
+    <model name="start_wall_south">
+      <static>true</static><pose>-13 -3 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>6 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>6 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- North wall -->
+    <model name="start_wall_north">
+      <static>true</static><pose>-13 3 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>6 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>6 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- West wall (back wall) -->
+    <model name="start_wall_west">
+      <static>true</static><pose>-16 0 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 6.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 6.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- East wall with doorway gap (y: -0.9 to 0.9 is open) -->
+    <model name="start_wall_east_south">
+      <static>true</static><pose>-10 -2.0 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 2.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 2.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="start_wall_east_north">
+      <static>true</static><pose>-10 2.0 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 2.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 2.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Hospital bed in start zone (static obstacle) -->
+    <model name="hospital_bed_start">
+      <static>true</static><pose>-14.5 1.8 0.4 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>1.8 0.8 0.8</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>1.8 0.8 0.8</size></box></geometry>
+          <material><ambient>0.8 0.85 1.0 1</ambient><diffuse>0.8 0.85 1.0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- Wheelchair -->
+    <model name="wheelchair_start">
+      <static>true</static><pose>-11.5 -1.5 0.25 0 0 0.5</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.6 0.5 0.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.6 0.5 0.5</size></box></geometry>
+          <material><ambient>0.3 0.3 0.3 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ============================================================ -->
+    <!--  ZONE 1 — MAIN CORRIDOR   (x: -10 to 0, y: -1.5 to 1.5)    -->
+    <!-- ============================================================ -->
+
+    <!-- South wall -->
+    <model name="corridor_wall_south">
+      <static>true</static><pose>-5 -1.5 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>10 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>10 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- North wall -->
+    <model name="corridor_wall_north">
+      <static>true</static><pose>-5 1.5 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>10 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>10 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Trolley obstacle mid-corridor -->
+    <model name="med_trolley_1">
+      <static>true</static><pose>-7 0.8 0.45 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.7 0.4 0.9</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.7 0.4 0.9</size></box></geometry>
+          <material><ambient>0.7 0.7 0.85 1</ambient><diffuse>0.7 0.7 0.85 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="med_trolley_2">
+      <static>true</static><pose>-3.5 -0.7 0.45 0 0 0.3</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.7 0.4 0.9</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.7 0.4 0.9</size></box></geometry>
+          <material><ambient>0.7 0.7 0.85 1</ambient><diffuse>0.7 0.7 0.85 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ============================================================ -->
+    <!--  ZONE 2 — INTERSECTION   (x: -0.75 to 0.75, y: -6 to 6)     -->
+    <!-- ============================================================ -->
+
+    <!-- West walls of intersection corridor (flanking the junction) -->
+    <model name="intersect_wall_west_south">
+      <static>true</static><pose>-0.75 -3.75 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 4.65 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 4.65 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="intersect_wall_west_north">
+      <static>true</static><pose>-0.75 3.75 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 4.65 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 4.65 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- East walls of intersection corridor -->
+    <model name="intersect_wall_east_south">
+      <static>true</static><pose>0.75 -3.75 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 4.65 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 4.65 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="intersect_wall_east_north">
+      <static>true</static><pose>0.75 3.75 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 4.65 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 4.65 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- North cap -->
+    <model name="intersect_wall_north_cap">
+      <static>true</static><pose>0 6 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>1.65 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>1.65 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- South cap -->
+    <model name="intersect_wall_south_cap">
+      <static>true</static><pose>0 -6 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>1.65 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>1.65 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ============================================================ -->
+    <!--  ZONE 3 — FALSE GOAL / TRAP ROOM  (x:0 to 5, y:-6 to -1.5)  -->
+    <!--  Robot is lured here by a misleading sign — NOT the goal     -->
+    <!-- ============================================================ -->
+
+    <model name="false_goal_wall_south">
+      <static>true</static><pose>2.5 -6 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>5 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>5 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="false_goal_wall_east">
+      <static>true</static><pose>5 -3.75 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 4.65 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 4.65 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="false_goal_wall_north">
+      <static>true</static><pose>2.5 -1.5 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>5 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>5 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- FALSE GOAL marker — green box on the floor -->
+    <model name="false_goal_marker">
+      <static>true</static><pose>2.5 -3.75 0.02 0 0 0</pose>
+      <link name="link">
+        <visual name="v"><geometry><box><size>1.5 1.5 0.04</size></box></geometry>
+          <material><ambient>0.2 0.8 0.2 1</ambient><diffuse>0.2 0.8 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- False goal sign (RED cross — misleading GOAL sign) -->
+    <model name="false_goal_sign">
+      <static>true</static><pose>4.8 -3.75 1.3 0 0 1.5708</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.04 0.5 0.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.04 0.5 0.5</size></box></geometry>
+          <material><ambient>0.9 0.1 0.1 1</ambient><diffuse>0.9 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ============================================================ -->
+    <!--  ZONE 4 — LOOP TRAP CORRIDOR  (x:-4 to 0, y:-6 to -1.5)     -->
+    <!--  A corridor that loops back — robot must detect & escape     -->
+    <!-- ============================================================ -->
+
+    <model name="loop_wall_west">
+      <static>true</static><pose>-4 -3.75 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 4.65 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 4.65 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="loop_wall_south">
+      <static>true</static><pose>-2 -6 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>4 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>4 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="loop_wall_north">
+      <static>true</static><pose>-2 -1.5 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>4 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>4 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- Loop divider — creates the U-shape loop -->
+    <model name="loop_divider">
+      <static>true</static><pose>-2 -4.5 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>3.5 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>3.5 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ============================================================ -->
+    <!--  ZONE 5 — MAZE / NARROW PASSAGE  (x:0 to 10, y:1.5 to 6)   -->
+    <!-- ============================================================ -->
+
+    <!-- Outer boundary -->
+    <model name="maze_wall_north">
+      <static>true</static><pose>5 6 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>10 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>10 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="maze_wall_south">
+      <static>true</static><pose>5 1.5 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>10 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>10 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="maze_wall_west">
+      <static>true</static><pose>0 3.75 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 4.65 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 4.65 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Internal maze walls — creates narrow passages (~1.2m wide) -->
+    <!-- Baffle 1: from south, gap at top -->
+    <model name="maze_baffle_1">
+      <static>true</static><pose>2.5 3.0 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 3.0 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 3.0 2.5</size></box></geometry>
+          <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>0.9 0.9 0.9 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- Baffle 2: from north, gap at bottom -->
+    <model name="maze_baffle_2">
+      <static>true</static><pose>5 4.2 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 3.6 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 3.6 2.5</size></box></geometry>
+          <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>0.9 0.9 0.9 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- Baffle 3: dead end branch -->
+    <model name="maze_baffle_3">
+      <static>true</static><pose>7.5 3.0 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 3.0 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 3.0 2.5</size></box></geometry>
+          <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>0.9 0.9 0.9 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- Baffle 4: horizontal blocker creating dead-end pocket -->
+    <model name="maze_baffle_4">
+      <static>true</static><pose>6.5 2.5 1.25 0 0 1.5708</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 2.0 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 2.0 2.5</size></box></geometry>
+          <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>0.9 0.9 0.9 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ============================================================ -->
+    <!--  ZONE 6 — TRUE GOAL ZONE  (x:10 to 14, y:1.5 to 6)          -->
+    <!-- ============================================================ -->
+
+    <model name="goal_wall_north">
+      <static>true</static><pose>12 6 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>4 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>4 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="goal_wall_east">
+      <static>true</static><pose>14 3.75 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 4.65 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 4.65 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="goal_wall_south_1">
+      <static>true</static><pose>11 1.5 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>2.0 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>2.0 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="goal_wall_south_2">
+      <static>true</static><pose>13.5 1.5 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>1.0 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>1.0 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- TRUE GOAL floor marker — bright blue -->
+    <model name="true_goal_marker">
+      <static>true</static><pose>12 3.75 0.02 0 0 0</pose>
+      <link name="link">
+        <visual name="v"><geometry><box><size>2.0 2.0 0.04</size></box></geometry>
+          <material><ambient>0.1 0.3 0.9 1</ambient><diffuse>0.1 0.3 0.9 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ============================================================ -->
+    <!--  ARUCO MARKERS (4 total — IDs 0,1,2,3)                       -->
+    <!--  Represented as white boards on walls at eye height (~1.2m)  -->
+    <!--  In your perception node, detect these by their position     -->
+    <!--  relative to the camera — replace texture with real PNGs     -->
+    <!-- ============================================================ -->
+
+    <!-- ArUco ID 0 — Start zone, north wall -->
+    <model name="aruco_marker_0">
+      <static>true</static><pose>-12 2.92 1.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.3 0.04 0.3</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.3 0.04 0.3</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- ArUco ID 1 — Mid corridor, south wall -->
+    <model name="aruco_marker_1">
+      <static>true</static><pose>-6 -1.42 1.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.3 0.04 0.3</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.3 0.04 0.3</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- ArUco ID 2 — Maze entrance, west wall -->
+    <model name="aruco_marker_2">
+      <static>true</static><pose>0.08 4.5 1.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.04 0.3 0.3</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.04 0.3 0.3</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- ArUco ID 3 — Goal zone, east wall -->
+    <model name="aruco_marker_3">
+      <static>true</static><pose>13.92 3.75 1.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.04 0.3 0.3</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.04 0.3 0.3</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ============================================================ -->
+    <!--  DIRECTION SIGNS (6 total)                                   -->
+    <!--  Colour coded boards — replace with textured meshes later    -->
+    <!--  CYAN=FORWARD  YELLOW=LEFT  ORANGE=RIGHT                     -->
+    <!--  MAGENTA=INPLACE_ROTATION  RED=STOP  BLUE=GOAL               -->
+    <!-- ============================================================ -->
+
+    <!-- Sign 1: FORWARD — corridor, north wall, pointing east -->
+    <model name="sign_forward">
+      <static>true</static><pose>-8 1.42 1.5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.4 0.04 0.3</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.4 0.04 0.3</size></box></geometry>
+          <material><ambient>0.0 0.85 0.85 1</ambient><diffuse>0.0 0.85 0.85 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Sign 2: LEFT — intersection north end, east wall (go into maze) -->
+    <model name="sign_left">
+      <static>true</static><pose>0.72 5.0 1.5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.04 0.4 0.3</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.04 0.4 0.3</size></box></geometry>
+          <material><ambient>0.9 0.85 0.0 1</ambient><diffuse>0.9 0.85 0.0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Sign 3: RIGHT — misleading, points south toward false goal -->
+    <model name="sign_right_misleading">
+      <static>true</static><pose>0.72 -2.5 1.5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.04 0.4 0.3</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.04 0.4 0.3</size></box></geometry>
+          <material><ambient>0.95 0.5 0.0 1</ambient><diffuse>0.95 0.5 0.0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Sign 4: INPLACE ROTATION — maze baffle 2, facing robot -->
+    <model name="sign_inplace_rotation">
+      <static>true</static><pose>4.92 3.5 1.5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.04 0.4 0.3</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.04 0.4 0.3</size></box></geometry>
+          <material><ambient>0.85 0.0 0.85 1</ambient><diffuse>0.85 0.0 0.85 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Sign 5: STOP — inside maze dead end, warns robot -->
+    <model name="sign_stop">
+      <static>true</static><pose>7.42 2.5 1.5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.04 0.4 0.3</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.04 0.4 0.3</size></box></geometry>
+          <material><ambient>0.9 0.1 0.1 1</ambient><diffuse>0.9 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Sign 6: GOAL — true goal zone entrance -->
+    <model name="sign_goal">
+      <static>true</static><pose>10.05 3.75 1.5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.04 0.4 0.3</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.04 0.3 0.3</size></box></geometry>
+          <material><ambient>0.1 0.3 0.9 1</ambient><diffuse>0.1 0.3 0.9 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ============================================================ -->
+    <!--  STATIC OBSTACLES (scattered — penalised if hit)             -->
+    <!-- ============================================================ -->
+
+    <!-- Cone 1 -->
+    <model name="cone_1">
+      <static>true</static><pose>-4 0.5 0.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><cylinder><radius>0.15</radius><length>0.5</length></cylinder></geometry></collision>
+        <visual name="v"><geometry><cylinder><radius>0.15</radius><length>0.5</length></cylinder></geometry>
+          <material><ambient>0.9 0.4 0.0 1</ambient><diffuse>0.9 0.4 0.0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- Cone 2 -->
+    <model name="cone_2">
+      <static>true</static><pose>-1.5 -0.6 0.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><cylinder><radius>0.15</radius><length>0.5</length></cylinder></geometry></collision>
+        <visual name="v"><geometry><cylinder><radius>0.15</radius><length>0.5</length></cylinder></geometry>
+          <material><ambient>0.9 0.4 0.0 1</ambient><diffuse>0.9 0.4 0.0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- Box obstacle in maze -->
+    <model name="maze_box_obs_1">
+      <static>true</static><pose>3.5 4.8 0.3 0 0 0.4</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.5 0.5 0.6</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.5 0.5 0.6</size></box></geometry>
+          <material><ambient>0.4 0.4 0.4 1</ambient><diffuse>0.4 0.4 0.4 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="maze_box_obs_2">
+      <static>true</static><pose>6.5 5.2 0.3 0 0 0.8</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.5 0.5 0.6</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.5 0.5 0.6</size></box></geometry>
+          <material><ambient>0.4 0.4 0.4 1</ambient><diffuse>0.4 0.4 0.4 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ============================================================ -->
+    <!--  CEILING  (visual only, gives hospital indoor feel)          -->
+    <!-- ============================================================ -->
+    <model name="ceiling">
+      <static>true</static><pose>0 0 2.5 0 0 0</pose>
+      <link name="link">
+        <visual name="v"><geometry><box><size>35 15 0.05</size></box></geometry>
+          <material><ambient>0.98 0.98 0.98 1</ambient><diffuse>0.98 0.98 0.98 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>

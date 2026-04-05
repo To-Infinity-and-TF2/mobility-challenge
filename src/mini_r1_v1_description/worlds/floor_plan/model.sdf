@@ -1,0 +1,1457 @@
+<sdf version="1.6">
+  <model name="floor_plan">
+    <static>true</static>
+    <link name="link_1_border_bottom">
+      <static>true</static>
+      <pose>0 -25 0.25 0 0 0</pose>
+      <visual name="border_bottom_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>20.1 0.1 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="border_bottom_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>20.1 0.1 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_2_border_top">
+      <static>true</static>
+      <pose>0 13 0.25 0 0 0</pose>
+      <visual name="border_top_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>20.1 0.1 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="border_top_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>20.1 0.1 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_3_border_left">
+      <static>true</static>
+      <pose>-10 -6 0.25 0 0 0</pose>
+      <visual name="border_left_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.1 37.9 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="border_left_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.1 37.9 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_4_border_right">
+      <static>true</static>
+      <pose>10 -6 0.25 0 0 0</pose>
+      <visual name="border_right_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.1 37.9 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="border_right_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.1 37.9 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_5_top_left_col">
+      <static>true</static>
+      <pose>-6.975 10 0.25 0 0 0</pose>
+      <visual name="top_left_col_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>5.95 5.9 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="top_left_col_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>5.95 5.9 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_6_top_right_col">
+      <static>true</static>
+      <pose>6.975 10 0.25 0 0 0</pose>
+      <visual name="top_right_col_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>5.95 5.9 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="top_right_col_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>5.95 5.9 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_7_crossbar">
+      <static>true</static>
+      <pose>0 7 0.25 0 0 0</pose>
+      <visual name="crossbar_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>14.0 0.1 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="crossbar_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>14.0 0.1 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_8_top_left_flange">
+      <static>true</static>
+      <pose>-8.475 5.475 0.25 0 0 0</pose>
+      <visual name="top_left_flange_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.95 2.95 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="top_left_flange_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.95 2.95 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_9_top_center_strip">
+      <static>true</static>
+      <pose>0 5.475 0.25 0 0 0</pose>
+      <visual name="top_center_strip_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>14.0 2.95 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="top_center_strip_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>14.0 2.95 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_10_mid_body_0_4000">
+      <static>true</static>
+      <pose>-1.475 2 0.25 0 0 0</pose>
+      <visual name="mid_body_0_4000_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>16.95 4.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="mid_body_0_4000_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>16.95 4.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_11_right_bump">
+      <static>true</static>
+      <pose>8.3 -0.25 0.25 0 0 0</pose>
+      <visual name="right_bump_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.4 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="right_bump_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.4 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_12_right_col_top">
+      <static>true</static>
+      <pose>9.475 -1 0.25 0 0 0</pose>
+      <visual name="right_col_top_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.95 2.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="right_col_top_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.95 2.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_13_right_mid_bar">
+      <static>true</static>
+      <pose>7 -1.75 0.25 0 0 0</pose>
+      <visual name="right_mid_bar_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>4.0 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="right_mid_bar_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>4.0 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_14_left_strip">
+      <static>true</static>
+      <pose>-8.975 -3.25 0.25 0 0 0</pose>
+      <visual name="left_strip_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.95 5.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="left_strip_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.95 5.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_15_y_neg500_left">
+      <static>true</static>
+      <pose>-8.975 -0.25 0.25 0 0 0</pose>
+      <visual name="y_neg500_left_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.95 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="y_neg500_left_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.95 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_16_y_neg500_m1">
+      <static>true</static>
+      <pose>-3.5 -0.25 0.25 0 0 0</pose>
+      <visual name="y_neg500_m1_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.0 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="y_neg500_m1_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.0 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_17_y_neg500_m2">
+      <static>true</static>
+      <pose>3 -0.25 0.25 0 0 0</pose>
+      <visual name="y_neg500_m2_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.0 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="y_neg500_m2_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.0 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_18_y_neg500_r">
+      <static>true</static>
+      <pose>8.775 -0.25 0.25 0 0 0</pose>
+      <visual name="y_neg500_r_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.35 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="y_neg500_r_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.35 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_19_D_top">
+      <static>true</static>
+      <pose>-5.75 -1 0.25 0 0 0</pose>
+      <visual name="D_top_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.5 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="D_top_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.5 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_20_D_bottom">
+      <static>true</static>
+      <pose>-5.75 -5.5 0.25 0 0 0</pose>
+      <visual name="D_bottom_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.5 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="D_bottom_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.5 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_21_P_left">
+      <static>true</static>
+      <pose>-4 -3.25 0.25 0 0 0</pose>
+      <visual name="P_left_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 5.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="P_left_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 5.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_22_P_top">
+      <static>true</static>
+      <pose>-2.5 -1 0.25 0 0 0</pose>
+      <visual name="P_top_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.0 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="P_top_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.0 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_23_P_mid">
+      <static>true</static>
+      <pose>-3 -2.5 0.25 0 0 0</pose>
+      <visual name="P_mid_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 2.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="P_mid_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 2.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_24_S_top">
+      <static>true</static>
+      <pose>0.75 -1 0.25 0 0 0</pose>
+      <visual name="S_top_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>4.5 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="S_top_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>4.5 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_25_S_mid">
+      <static>true</static>
+      <pose>0.75 -3 0.25 0 0 0</pose>
+      <visual name="S_mid_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>4.5 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="S_mid_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>4.5 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_26_S_bottom">
+      <static>true</static>
+      <pose>0.75 -5.5 0.25 0 0 0</pose>
+      <visual name="S_bottom_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>4.5 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="S_bottom_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>4.5 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_27_right_block_lo">
+      <static>true</static>
+      <pose>6.725 -11.25 0.25 0 0 0</pose>
+      <visual name="right_block_lo_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>6.45 3.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="right_block_lo_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>6.45 3.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_28_right_block_hi">
+      <static>true</static>
+      <pose>8.225 -7.25 0.25 0 0 0</pose>
+      <visual name="right_block_hi_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>3.45 4.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="right_block_hi_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>3.45 4.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_29_right_stair_bar">
+      <static>true</static>
+      <pose>6 -9 0.25 0 0 0</pose>
+      <visual name="right_stair_bar_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="right_stair_bar_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_30_S_right_top">
+      <static>true</static>
+      <pose>6.975 -3.5 0.25 0 0 0</pose>
+      <visual name="S_right_top_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>5.95 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="S_right_top_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>5.95 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_31_S_right_col">
+      <static>true</static>
+      <pose>8.975 -5 0.25 0 0 0</pose>
+      <visual name="S_right_col_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.95 2.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="S_right_col_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.95 2.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_32_step1">
+      <static>true</static>
+      <pose>3.75 -9 0.25 0 0 0</pose>
+      <visual name="step1_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>3.5 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="step1_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>3.5 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_33_step2">
+      <static>true</static>
+      <pose>4.25 -7.5 0.25 0 0 0</pose>
+      <visual name="step2_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.5 2.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="step2_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.5 2.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_34_step3">
+      <static>true</static>
+      <pose>1 -8.5 0.25 0 0 0</pose>
+      <visual name="step3_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.0 2.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="step3_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.0 2.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_35_step4">
+      <static>true</static>
+      <pose>1.5 -7 0.25 0 0 0</pose>
+      <visual name="step4_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>3.0 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="step4_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>3.0 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_36_low_left_a">
+      <static>true</static>
+      <pose>-8.725 -13.25 0.25 0 0 0</pose>
+      <visual name="low_left_a_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.45 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="low_left_a_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.45 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_37_low_left_b">
+      <static>true</static>
+      <pose>-8.475 -11.5 0.25 0 0 0</pose>
+      <visual name="low_left_b_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.95 3.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="low_left_b_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.95 3.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_38_low_mid_b">
+      <static>true</static>
+      <pose>-4.5 -11.5 0.25 0 0 0</pose>
+      <visual name="low_mid_b_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.0 3.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="low_mid_b_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>2.0 3.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_39_low_right_lo">
+      <static>true</static>
+      <pose>0.75 -11.5 0.25 0 0 0</pose>
+      <visual name="low_right_lo_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>5.5 3.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="low_right_lo_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>5.5 3.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_40_low_step_r">
+      <static>true</static>
+      <pose>-2.25 -13.25 0.25 0 0 0</pose>
+      <visual name="low_step_r_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.5 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="low_step_r_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.5 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_41_step_conn">
+      <static>true</static>
+      <pose>-6.25 -9.75 0.25 0 0 0</pose>
+      <visual name="step_conn_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.5 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="step_conn_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.5 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_42_step_conn2">
+      <static>true</static>
+      <pose>-4.5 -9.75 0.25 0 0 0</pose>
+      <visual name="step_conn2_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="step_conn2_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_43_step_v">
+      <static>true</static>
+      <pose>-3.75 -9.25 0.25 0 0 0</pose>
+      <visual name="step_v_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.5 1.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="step_v_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.5 1.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_44_mid_bar">
+      <static>true</static>
+      <pose>-3 -9 0.25 0 0 0</pose>
+      <visual name="mid_bar_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>4.0 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="mid_bar_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>4.0 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_45_mid_lo">
+      <static>true</static>
+      <pose>1 -7.5 0.25 0 0 0</pose>
+      <visual name="mid_lo_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>4.0 2.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="mid_lo_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>4.0 2.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_46_bot_full_strip">
+      <static>true</static>
+      <pose>0 -23.475 0.25 0 0 0</pose>
+      <visual name="bot_full_strip_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>19.9 2.95 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="bot_full_strip_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>19.9 2.95 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_47_bot_left">
+      <static>true</static>
+      <pose>-5.475 -20.5 0.25 0 0 0</pose>
+      <visual name="bot_left_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>8.95 3.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="bot_left_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>8.95 3.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_48_bot_mid_right">
+      <static>true</static>
+      <pose>2.432 -20.5 0.25 0 0 0</pose>
+      <visual name="bot_mid_right_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>3.035 3.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="bot_mid_right_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>3.035 3.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_49_bot_right_1">
+      <static>true</static>
+      <pose>7 -20.5 0.25 0 0 0</pose>
+      <visual name="bot_right_1_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>5.9 3.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="bot_right_1_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>5.9 3.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_50_thin_vert">
+      <static>true</static>
+      <pose>4 -17 0.25 0 0 0</pose>
+      <visual name="thin_vert_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.1 4.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="thin_vert_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.1 4.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_51_right_col">
+      <static>true</static>
+      <pose>7 -16 0.25 0 0 0</pose>
+      <visual name="right_col_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>5.9 6.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="right_col_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>5.9 6.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_52_bot_connector_L">
+      <static>true</static>
+      <pose>-5.475 -16.25 0.25 0 0 0</pose>
+      <visual name="bot_connector_L_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>8.95 5.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="bot_connector_L_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>8.95 5.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_53_bot_connector_R">
+      <static>true</static>
+      <pose>2.432 -17 0.25 0 0 0</pose>
+      <visual name="bot_connector_R_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>3.035 4.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="bot_connector_R_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>3.035 4.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_54_left_col_step">
+      <static>true</static>
+      <pose>-5.975 -13.25 0.25 0 0 0</pose>
+      <visual name="left_col_step_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>7.95 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="left_col_step_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>7.95 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_55_circle_island">
+      <static>true</static>
+      <pose>-4.502 -16 0.25 0 0 0</pose>
+      <visual name="circle_island_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cylinder.stl</uri>
+            <scale>2.996 2.996 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="circle_island_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cylinder.stl</uri>
+            <scale>2.996 2.996 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_56_island_1">
+      <static>true</static>
+      <pose>-8.25 -17.75 0.25 0 0 0</pose>
+      <visual name="island_1_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.5 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="island_1_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.5 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_57_island_2">
+      <static>true</static>
+      <pose>2.5 -17 0.25 0 0 0</pose>
+      <visual name="island_2_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="island_2_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_58_island_3">
+      <static>true</static>
+      <pose>6 -17 0.25 0 0 0</pose>
+      <visual name="island_3_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="island_3_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_59_island_4">
+      <static>true</static>
+      <pose>-1.25 -16.75 0.25 0 0 0</pose>
+      <visual name="island_4_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.5 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="island_4_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.5 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_60_island_5">
+      <static>true</static>
+      <pose>8 -15.5 0.25 0 0 0</pose>
+      <visual name="island_5_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="island_5_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_61_island_6">
+      <static>true</static>
+      <pose>-8.75 -15.25 0.25 0 0 0</pose>
+      <visual name="island_6_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.5 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="island_6_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.5 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_62_island_7">
+      <static>true</static>
+      <pose>-0.75 -14.25 0.25 0 0 0</pose>
+      <visual name="island_7_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.5 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="island_7_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>0.5 0.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_63_island_8">
+      <static>true</static>
+      <pose>2 -14 0.25 0 0 0</pose>
+      <visual name="island_8_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="island_8_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_64_rect_island">
+      <static>true</static>
+      <pose>-6.25 -3.25 0.25 0 0 0</pose>
+      <visual name="rect_island_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.5 3.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="rect_island_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.5 3.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_65_L_vert">
+      <static>true</static>
+      <pose>-1 -3.25 0.25 0 0 0</pose>
+      <visual name="L_vert_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 3.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="L_vert_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.0 3.5 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    <link name="link_66_L_horiz">
+      <static>true</static>
+      <pose>0.25 -2 0.25 0 0 0</pose>
+      <visual name="L_horiz_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.5 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      <collision name="L_horiz_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://floor_plan/meshes/unit_cube.stl</uri>
+            <scale>1.5 1.0 0.5</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+  </sdf>

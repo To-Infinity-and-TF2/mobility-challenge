@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<sdf version='1.9'>
+  <model name='preq_task'>
+        <static>true</static>
+        
+        <link name='preq_task'>
+            <collision name='preq_task_collision'>
+                <geometry>
+                <mesh>
+                    <uri>model://preq_task/preq_task_2.dae</uri>
+                </mesh>
+          
+                </geometry>
+            </collision>
+
+            <visual name='preq_task_visual'>
+                <geometry>
+                <mesh>
+                    <uri>model://arena/.dae</uri>
+                </mesh>
+                
+                </geometry>
+            </visual>
+            
+        </link>
+  </model>
+</sdf>

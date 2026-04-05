@@ -13,16 +13,8 @@ find_package(ament_cmake REQUIRED)
 find_package(ros_gz_bridge REQUIRED)
 find_package(ros_gz_sim REQUIRED)
 
-install( DIRECTORY launch
-  DESTINATION share/${PROJECT_NAME})
-install( DIRECTORY urdf
-  DESTINATION share/${PROJECT_NAME})
-install( DIRECTORY meshes
-  DESTINATION share/${PROJECT_NAME})
-install( DIRECTORY worlds
-  DESTINATION share/${PROJECT_NAME})
 install(
-  DIRECTORY config launch meshes urdf
+  DIRECTORY launch urdf meshes worlds config
   DESTINATION share/${PROJECT_NAME}
 )
   
