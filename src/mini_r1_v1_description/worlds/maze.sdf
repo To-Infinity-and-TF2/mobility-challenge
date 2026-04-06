@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.7">
+  <world name="maze_world">
+
+    <plugin filename="ignition-gazebo-physics-system"
+            name="ignition::gazebo::systems::Physics"/>
+    <plugin filename="ignition-gazebo-scene-broadcaster-system"
+            name="ignition::gazebo::systems::SceneBroadcaster"/>
+    <plugin filename="ignition-gazebo-user-commands-system"
+            name="ignition::gazebo::systems::UserCommands"/>
+    <plugin filename="ignition-gazebo-sensors-system"
+            name="ignition::gazebo::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <model name="maze">
+      <static>true</static>
+      <link name="maze">
+        <pose>0.0 0.0 0.0 0.0 -0.0 0.0</pose>
+        <inertial>
+          <mass>1404397.2018456978</mass>
+          <pose>-0.6802931613918602 -5.429861107604283 0.24998929838238734 0.0 0.0 0.0</pose>
+          <inertia>
+            <ixx>135717071.70845324</ixx>
+            <iyy>42596672.79889175</iyy>
+            <izz>178255222.94761547</izz>
+            <ixy>2554668.3133175243</ixy>
+            <iyz>-8.568800903856754</iyz>
+            <ixz>10.224344861722784</ixz>
+          </inertia>
+        </inertial>
+        <visual name="maze_visual">
+          <geometry>
+            <mesh>
+              <uri>package://mini_r1_v1_description/meshes/maze.stl</uri>
+              <scale>0.001 0.001 0.001</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.2 0.5 0.8 1</ambient>
+            <diffuse>0.2 0.5 0.8 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="maze_collision">
+          <geometry>
+            <mesh>
+              <uri>package://mini_r1_v1_description/meshes/maze.stl</uri>
+              <scale>0.001 0.001 0.001</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+  </world>
+</sdf>
