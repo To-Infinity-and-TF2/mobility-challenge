@@ -1,0 +1,800 @@
+<?xml version="1.0" ?>
+<!--
+  SDF model reconstructed from Untitled.stl using primitive shapes.
+  All geometry is approximated with box and cylinder primitives.
+  Units match the original STL (large scale, likely in mm or custom units).
+  The model is a flat plate (height=500) with a complex 2D layout:
+    - Outer border frame
+    - Top section with columns and crossbar
+    - Middle section with letter-like cutout patterns ("DPS")
+    - Bottom section with large open area and scattered rectangular/circular islands
+-->
+<sdf version="1.6">
+  <model name="stl_model">
+    <static>true</static>
+    <link name="body">
+      <pose>0 0 0 0 0 0</pose>
+
+      <!-- ============================================================ -->
+      <!-- OUTER BORDER FRAME (100-unit thick walls)                    -->
+      <!-- ============================================================ -->
+
+      <!-- Bottom wall -->
+      <visual name="border_bottom">
+        <pose>0 -25000 250 0 0 0</pose>
+        <geometry><box><size>20100 100 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="border_bottom_col">
+        <pose>0 -25000 250 0 0 0</pose>
+        <geometry><box><size>20100 100 500</size></box></geometry>
+      </collision>
+
+      <!-- Top wall -->
+      <visual name="border_top">
+        <pose>0 13000 250 0 0 0</pose>
+        <geometry><box><size>20100 100 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="border_top_col">
+        <pose>0 13000 250 0 0 0</pose>
+        <geometry><box><size>20100 100 500</size></box></geometry>
+      </collision>
+
+      <!-- Left wall -->
+      <visual name="border_left">
+        <pose>-10000 -6000 250 0 0 0</pose>
+        <geometry><box><size>100 37900 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="border_left_col">
+        <pose>-10000 -6000 250 0 0 0</pose>
+        <geometry><box><size>100 37900 500</size></box></geometry>
+      </collision>
+
+      <!-- Right wall -->
+      <visual name="border_right">
+        <pose>10000 -6000 250 0 0 0</pose>
+        <geometry><box><size>100 37900 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="border_right_col">
+        <pose>10000 -6000 250 0 0 0</pose>
+        <geometry><box><size>100 37900 500</size></box></geometry>
+      </collision>
+
+      <!-- ============================================================ -->
+      <!-- TOP SECTION  Y[4000, 12950]                                  -->
+      <!-- ============================================================ -->
+
+      <!-- Left column: X[-9950,-4000] Y[7050,12950] -->
+      <visual name="top_left_col">
+        <pose>-6975 10000 250 0 0 0</pose>
+        <geometry><box><size>5950 5900 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="top_left_col_col">
+        <pose>-6975 10000 250 0 0 0</pose>
+        <geometry><box><size>5950 5900 500</size></box></geometry>
+      </collision>
+
+      <!-- Right column: X[4000,9950] Y[7050,12950] -->
+      <visual name="top_right_col">
+        <pose>6975 10000 250 0 0 0</pose>
+        <geometry><box><size>5950 5900 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="top_right_col_col">
+        <pose>6975 10000 250 0 0 0</pose>
+        <geometry><box><size>5950 5900 500</size></box></geometry>
+      </collision>
+
+      <!-- Crossbar: X[-7000,7000] Y[6950,7050] -->
+      <visual name="crossbar">
+        <pose>0 7000 250 0 0 0</pose>
+        <geometry><box><size>14000 100 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="crossbar_col">
+        <pose>0 7000 250 0 0 0</pose>
+        <geometry><box><size>14000 100 500</size></box></geometry>
+      </collision>
+
+      <!-- Left flange: X[-9950,-7000] Y[4000,6950] -->
+      <visual name="top_left_flange">
+        <pose>-8475 5475 250 0 0 0</pose>
+        <geometry><box><size>2950 2950 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="top_left_flange_col">
+        <pose>-8475 5475 250 0 0 0</pose>
+        <geometry><box><size>2950 2950 500</size></box></geometry>
+      </collision>
+
+      <!-- Center strip: X[-7000,7000] Y[4000,6950] -->
+      <visual name="top_center_strip">
+        <pose>0 5475 250 0 0 0</pose>
+        <geometry><box><size>14000 2950 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="top_center_strip_col">
+        <pose>0 5475 250 0 0 0</pose>
+        <geometry><box><size>14000 2950 500</size></box></geometry>
+      </collision>
+
+      <!-- ============================================================ -->
+      <!-- UPPER-MIDDLE BODY  Y[0, 4000]                               -->
+      <!-- ============================================================ -->
+
+      <!-- Main body Y[0,4000] X[-9950,7000] -->
+      <visual name="mid_body_0_4000">
+        <pose>-1475 2000 250 0 0 0</pose>
+        <geometry><box><size>16950 4000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="mid_body_0_4000_col">
+        <pose>-1475 2000 250 0 0 0</pose>
+        <geometry><box><size>16950 4000 500</size></box></geometry>
+      </collision>
+
+      <!-- Right bump: X[7600,9000] Y[-500,0] -->
+      <visual name="right_bump">
+        <pose>8300 -250 250 0 0 0</pose>
+        <geometry><box><size>1400 500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="right_bump_col">
+        <pose>8300 -250 250 0 0 0</pose>
+        <geometry><box><size>1400 500 500</size></box></geometry>
+      </collision>
+
+      <!-- Right column top: X[9000,9950] Y[-2000,0] -->
+      <visual name="right_col_top">
+        <pose>9475 -1000 250 0 0 0</pose>
+        <geometry><box><size>950 2000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="right_col_top_col">
+        <pose>9475 -1000 250 0 0 0</pose>
+        <geometry><box><size>950 2000 500</size></box></geometry>
+      </collision>
+
+      <!-- Right mid bar: X[5000,9000] Y[-2000,-1500] -->
+      <visual name="right_mid_bar">
+        <pose>7000 -1750 250 0 0 0</pose>
+        <geometry><box><size>4000 500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="right_mid_bar_col">
+        <pose>7000 -1750 250 0 0 0</pose>
+        <geometry><box><size>4000 500 500</size></box></geometry>
+      </collision>
+
+      <!-- ============================================================ -->
+      <!-- LETTER-CUTOUT MIDDLE SECTION  Y[-6000, 0]                   -->
+      <!-- Solid regions surrounding the "DPS" letter cutouts           -->
+      <!-- ============================================================ -->
+
+      <!-- Outer left strip X[-9950,-8000] Y[-6000,-500] -->
+      <visual name="left_strip">
+        <pose>-8975 -3250 250 0 0 0</pose>
+        <geometry><box><size>1950 5500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="left_strip_col">
+        <pose>-8975 -3250 250 0 0 0</pose>
+        <geometry><box><size>1950 5500 500</size></box></geometry>
+      </collision>
+
+      <!-- Y[-500,0] segments (between letter gaps) -->
+      <!-- Segment: X[-9950,-8000] Y[-500,0] (continuation of left strip) -->
+      <visual name="y_neg500_left">
+        <pose>-8975 -250 250 0 0 0</pose>
+        <geometry><box><size>1950 500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="y_neg500_left_col">
+        <pose>-8975 -250 250 0 0 0</pose>
+        <geometry><box><size>1950 500 500</size></box></geometry>
+      </collision>
+
+      <!-- Segment: X[-4500,-2500] Y[-500,0] -->
+      <visual name="y_neg500_m1">
+        <pose>-3500 -250 250 0 0 0</pose>
+        <geometry><box><size>2000 500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="y_neg500_m1_col">
+        <pose>-3500 -250 250 0 0 0</pose>
+        <geometry><box><size>2000 500 500</size></box></geometry>
+      </collision>
+
+      <!-- Segment: X[2000,4000] Y[-500,0] -->
+      <visual name="y_neg500_m2">
+        <pose>3000 -250 250 0 0 0</pose>
+        <geometry><box><size>2000 500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="y_neg500_m2_col">
+        <pose>3000 -250 250 0 0 0</pose>
+        <geometry><box><size>2000 500 500</size></box></geometry>
+      </collision>
+
+      <!-- Segment: X[7600,9950] Y[-500,0] -->
+      <visual name="y_neg500_r">
+        <pose>8775 -250 250 0 0 0</pose>
+        <geometry><box><size>2350 500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="y_neg500_r_col">
+        <pose>8775 -250 250 0 0 0</pose>
+        <geometry><box><size>2350 500 500</size></box></geometry>
+      </collision>
+
+      <!-- Letter D - top bar: X[-7000,-4500] Y[-1500,-500] -->
+      <visual name="D_top">
+        <pose>-5750 -1000 250 0 0 0</pose>
+        <geometry><box><size>2500 1000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="D_top_col">
+        <pose>-5750 -1000 250 0 0 0</pose>
+        <geometry><box><size>2500 1000 500</size></box></geometry>
+      </collision>
+
+      <!-- Letter D - bottom bar: X[-7000,-4500] Y[-6000,-5000] -->
+      <visual name="D_bottom">
+        <pose>-5750 -5500 250 0 0 0</pose>
+        <geometry><box><size>2500 1000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="D_bottom_col">
+        <pose>-5750 -5500 250 0 0 0</pose>
+        <geometry><box><size>2500 1000 500</size></box></geometry>
+      </collision>
+
+      <!-- Letter P - left bar: X[-4500,-3500] Y[-6000,-500] -->
+      <visual name="P_left">
+        <pose>-4000 -3250 250 0 0 0</pose>
+        <geometry><box><size>1000 5500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="P_left_col">
+        <pose>-4000 -3250 250 0 0 0</pose>
+        <geometry><box><size>1000 5500 500</size></box></geometry>
+      </collision>
+
+      <!-- Letter P - top bar: X[-3500,-1500] Y[-1500,-500] -->
+      <visual name="P_top">
+        <pose>-2500 -1000 250 0 0 0</pose>
+        <geometry><box><size>2000 1000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="P_top_col">
+        <pose>-2500 -1000 250 0 0 0</pose>
+        <geometry><box><size>2000 1000 500</size></box></geometry>
+      </collision>
+
+      <!-- Letter P - mid bump: X[-3500,-2500] Y[-3500,-1500] -->
+      <visual name="P_mid">
+        <pose>-3000 -2500 250 0 0 0</pose>
+        <geometry><box><size>1000 2000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="P_mid_col">
+        <pose>-3000 -2500 250 0 0 0</pose>
+        <geometry><box><size>1000 2000 500</size></box></geometry>
+      </collision>
+
+      <!-- Letter S - top bar: X[-1500,3000] Y[-1500,-500] -->
+      <visual name="S_top">
+        <pose>750 -1000 250 0 0 0</pose>
+        <geometry><box><size>4500 1000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="S_top_col">
+        <pose>750 -1000 250 0 0 0</pose>
+        <geometry><box><size>4500 1000 500</size></box></geometry>
+      </collision>
+
+      <!-- Letter S - mid bar: X[-1500,3000] Y[-3500,-2500] -->
+      <visual name="S_mid">
+        <pose>750 -3000 250 0 0 0</pose>
+        <geometry><box><size>4500 1000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="S_mid_col">
+        <pose>750 -3000 250 0 0 0</pose>
+        <geometry><box><size>4500 1000 500</size></box></geometry>
+      </collision>
+
+      <!-- Letter S - bottom bar: X[-1500,3000] Y[-6000,-5000] -->
+      <visual name="S_bottom">
+        <pose>750 -5500 250 0 0 0</pose>
+        <geometry><box><size>4500 1000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="S_bottom_col">
+        <pose>750 -5500 250 0 0 0</pose>
+        <geometry><box><size>4500 1000 500</size></box></geometry>
+      </collision>
+
+      <!-- Right block lower: X[3500,9950] Y[-13000,-9500] -->
+      <visual name="right_block_lo">
+        <pose>6725 -11250 250 0 0 0</pose>
+        <geometry><box><size>6450 3500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="right_block_lo_col">
+        <pose>6725 -11250 250 0 0 0</pose>
+        <geometry><box><size>6450 3500 500</size></box></geometry>
+      </collision>
+
+      <!-- Right block upper: X[6500,9950] Y[-9500,-5000] -->
+      <visual name="right_block_hi">
+        <pose>8225 -7250 250 0 0 0</pose>
+        <geometry><box><size>3450 4500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="right_block_hi_col">
+        <pose>8225 -7250 250 0 0 0</pose>
+        <geometry><box><size>3450 4500 500</size></box></geometry>
+      </collision>
+
+      <!-- Right stair bar: X[5500,6500] Y[-9500,-8500] -->
+      <visual name="right_stair_bar">
+        <pose>6000 -9000 250 0 0 0</pose>
+        <geometry><box><size>1000 1000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="right_stair_bar_col">
+        <pose>6000 -9000 250 0 0 0</pose>
+        <geometry><box><size>1000 1000 500</size></box></geometry>
+      </collision>
+
+      <!-- S-right col: X[4000,9950] Y[-4000,-3000] -->
+      <visual name="S_right_top">
+        <pose>6975 -3500 250 0 0 0</pose>
+        <geometry><box><size>5950 1000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="S_right_top_col">
+        <pose>6975 -3500 250 0 0 0</pose>
+        <geometry><box><size>5950 1000 500</size></box></geometry>
+      </collision>
+
+      <!-- S right col lower: X[8000,9950] Y[-6000,-4000] -->
+      <visual name="S_right_col">
+        <pose>8975 -5000 250 0 0 0</pose>
+        <geometry><box><size>1950 2000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="S_right_col_col">
+        <pose>8975 -5000 250 0 0 0</pose>
+        <geometry><box><size>1950 2000 500</size></box></geometry>
+      </collision>
+
+      <!-- Step 1: X[2000,5500] Y[-9500,-8500] -->
+      <visual name="step1">
+        <pose>3750 -9000 250 0 0 0</pose>
+        <geometry><box><size>3500 1000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="step1_col">
+        <pose>3750 -9000 250 0 0 0</pose>
+        <geometry><box><size>3500 1000 500</size></box></geometry>
+      </collision>
+
+      <!-- Step 2: X[3000,5500] Y[-8500,-6500] -->
+      <visual name="step2">
+        <pose>4250 -7500 250 0 0 0</pose>
+        <geometry><box><size>2500 2000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="step2_col">
+        <pose>4250 -7500 250 0 0 0</pose>
+        <geometry><box><size>2500 2000 500</size></box></geometry>
+      </collision>
+
+      <!-- Step 3: X[0,2000] Y[-9500,-7500] -->
+      <visual name="step3">
+        <pose>1000 -8500 250 0 0 0</pose>
+        <geometry><box><size>2000 2000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="step3_col">
+        <pose>1000 -8500 250 0 0 0</pose>
+        <geometry><box><size>2000 2000 500</size></box></geometry>
+      </collision>
+
+      <!-- Step 4: X[0,3000] Y[-7500,-6500] -->
+      <visual name="step4">
+        <pose>1500 -7000 250 0 0 0</pose>
+        <geometry><box><size>3000 1000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="step4_col">
+        <pose>1500 -7000 250 0 0 0</pose>
+        <geometry><box><size>3000 1000 500</size></box></geometry>
+      </collision>
+
+      <!-- ============================================================ -->
+      <!-- LOWER-MIDDLE SECTION  Y[-13000, -6000]                       -->
+      <!-- ============================================================ -->
+
+      <!-- Low left A: X[-9950,-7500] Y[-13500,-13000] -->
+      <visual name="low_left_a">
+        <pose>-8725 -13250 250 0 0 0</pose>
+        <geometry><box><size>2450 500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="low_left_a_col">
+        <pose>-8725 -13250 250 0 0 0</pose>
+        <geometry><box><size>2450 500 500</size></box></geometry>
+      </collision>
+
+      <!-- Low left B: X[-9950,-7000] Y[-13000,-10000] -->
+      <visual name="low_left_b">
+        <pose>-8475 -11500 250 0 0 0</pose>
+        <geometry><box><size>2950 3000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="low_left_b_col">
+        <pose>-8475 -11500 250 0 0 0</pose>
+        <geometry><box><size>2950 3000 500</size></box></geometry>
+      </collision>
+
+      <!-- Low mid block: X[-5500,-3500] Y[-13000,-10000] -->
+      <visual name="low_mid_b">
+        <pose>-4500 -11500 250 0 0 0</pose>
+        <geometry><box><size>2000 3000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="low_mid_b_col">
+        <pose>-4500 -11500 250 0 0 0</pose>
+        <geometry><box><size>2000 3000 500</size></box></geometry>
+      </collision>
+
+      <!-- Low right block: X[-2000,3500] Y[-13000,-10000] -->
+      <visual name="low_right_lo">
+        <pose>750 -11500 250 0 0 0</pose>
+        <geometry><box><size>5500 3000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="low_right_lo_col">
+        <pose>750 -11500 250 0 0 0</pose>
+        <geometry><box><size>5500 3000 500</size></box></geometry>
+      </collision>
+
+      <!-- Low step right: X[-2500,-2000] Y[-13500,-13000] -->
+      <visual name="low_step_r">
+        <pose>-2250 -13250 250 0 0 0</pose>
+        <geometry><box><size>500 500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="low_step_r_col">
+        <pose>-2250 -13250 250 0 0 0</pose>
+        <geometry><box><size>500 500 500</size></box></geometry>
+      </collision>
+
+      <!-- Step connector: X[-7000,-5500] Y[-10000,-9500] -->
+      <visual name="step_conn">
+        <pose>-6250 -9750 250 0 0 0</pose>
+        <geometry><box><size>1500 500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="step_conn_col">
+        <pose>-6250 -9750 250 0 0 0</pose>
+        <geometry><box><size>1500 500 500</size></box></geometry>
+      </collision>
+
+      <!-- Step connector 2: X[-5000,-4000] Y[-10000,-9500] -->
+      <visual name="step_conn2">
+        <pose>-4500 -9750 250 0 0 0</pose>
+        <geometry><box><size>1000 500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="step_conn2_col">
+        <pose>-4500 -9750 250 0 0 0</pose>
+        <geometry><box><size>1000 500 500</size></box></geometry>
+      </collision>
+
+      <!-- Step vertical: X[-4000,-3500] Y[-10000,-8500] -->
+      <visual name="step_v">
+        <pose>-3750 -9250 250 0 0 0</pose>
+        <geometry><box><size>500 1500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="step_v_col">
+        <pose>-3750 -9250 250 0 0 0</pose>
+        <geometry><box><size>500 1500 500</size></box></geometry>
+      </collision>
+
+      <!-- Mid bar: X[-5000,-1000] Y[-9500,-8500] -->
+      <visual name="mid_bar">
+        <pose>-3000 -9000 250 0 0 0</pose>
+        <geometry><box><size>4000 1000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="mid_bar_col">
+        <pose>-3000 -9000 250 0 0 0</pose>
+        <geometry><box><size>4000 1000 500</size></box></geometry>
+      </collision>
+
+      <!-- Mid lower: X[-1000,3000] Y[-8500,-6500] -->
+      <visual name="mid_lo">
+        <pose>1000 -7500 250 0 0 0</pose>
+        <geometry><box><size>4000 2000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="mid_lo_col">
+        <pose>1000 -7500 250 0 0 0</pose>
+        <geometry><box><size>4000 2000 500</size></box></geometry>
+      </collision>
+
+      <!-- ============================================================ -->
+      <!-- BOTTOM FULL STRIP  Y[-24950,-22000]                         -->
+      <!-- ============================================================ -->
+
+      <visual name="bot_full_strip">
+        <pose>0 -23475 250 0 0 0</pose>
+        <geometry><box><size>19900 2950 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="bot_full_strip_col">
+        <pose>0 -23475 250 0 0 0</pose>
+        <geometry><box><size>19900 2950 500</size></box></geometry>
+      </collision>
+
+      <!-- ============================================================ -->
+      <!-- BOTTOM MID-SECTION  Y[-22000,-13000]                        -->
+      <!-- Large open area with frame and some connectors               -->
+      <!-- ============================================================ -->
+
+      <!-- Bottom left box: X[-9950,-1000] Y[-22000,-19000] -->
+      <visual name="bot_left">
+        <pose>-5475 -20500 250 0 0 0</pose>
+        <geometry><box><size>8950 3000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="bot_left_col">
+        <pose>-5475 -20500 250 0 0 0</pose>
+        <geometry><box><size>8950 3000 500</size></box></geometry>
+      </collision>
+
+      <!-- Bottom mid-right: X[915,3950] Y[-22000,-19000] -->
+      <visual name="bot_mid_right">
+        <pose>2432 -20500 250 0 0 0</pose>
+        <geometry><box><size>3035 3000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="bot_mid_right_col">
+        <pose>2432 -20500 250 0 0 0</pose>
+        <geometry><box><size>3035 3000 500</size></box></geometry>
+      </collision>
+
+      <!-- Bottom right box 1: X[4050,9950] Y[-22000,-19000] -->
+      <visual name="bot_right_1">
+        <pose>7000 -20500 250 0 0 0</pose>
+        <geometry><box><size>5900 3000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="bot_right_1_col">
+        <pose>7000 -20500 250 0 0 0</pose>
+        <geometry><box><size>5900 3000 500</size></box></geometry>
+      </collision>
+
+      <!-- Thin vertical strip: X[3950,4050] Y[-19000,-15000] -->
+      <visual name="thin_vert">
+        <pose>4000 -17000 250 0 0 0</pose>
+        <geometry><box><size>100 4000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="thin_vert_col">
+        <pose>4000 -17000 250 0 0 0</pose>
+        <geometry><box><size>100 4000 500</size></box></geometry>
+      </collision>
+
+      <!-- Right column: X[4050,9950] Y[-19000,-13000] -->
+      <visual name="right_col">
+        <pose>7000 -16000 250 0 0 0</pose>
+        <geometry><box><size>5900 6000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="right_col_col">
+        <pose>7000 -16000 250 0 0 0</pose>
+        <geometry><box><size>5900 6000 500</size></box></geometry>
+      </collision>
+
+      <!-- Bottom connector left: X[-9950,-1000] Y[-19000,-13500] -->
+      <visual name="bot_connector_L">
+        <pose>-5475 -16250 250 0 0 0</pose>
+        <geometry><box><size>8950 5500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="bot_connector_L_col">
+        <pose>-5475 -16250 250 0 0 0</pose>
+        <geometry><box><size>8950 5500 500</size></box></geometry>
+      </collision>
+
+      <!-- Bottom connector right: X[915,3950] Y[-19000,-15000] -->
+      <visual name="bot_connector_R">
+        <pose>2432 -17000 250 0 0 0</pose>
+        <geometry><box><size>3035 4000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="bot_connector_R_col">
+        <pose>2432 -17000 250 0 0 0</pose>
+        <geometry><box><size>3035 4000 500</size></box></geometry>
+      </collision>
+
+      <!-- Left col step: X[-9950,-2000] Y[-13500,-13000] -->
+      <visual name="left_col_step">
+        <pose>-5975 -13250 250 0 0 0</pose>
+        <geometry><box><size>7950 500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="left_col_step_col">
+        <pose>-5975 -13250 250 0 0 0</pose>
+        <geometry><box><size>7950 500 500</size></box></geometry>
+      </collision>
+
+      <!-- ============================================================ -->
+      <!-- STANDALONE ISLANDS in the bottom open area                   -->
+      <!-- ============================================================ -->
+
+      <!-- Circle island at (-4502, -16000) radius 1498 -->
+      <visual name="circle_island">
+        <pose>-4502 -16000 250 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>1498</radius>
+            <length>500</length>
+          </cylinder>
+        </geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="circle_island_col">
+        <pose>-4502 -16000 250 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>1498</radius>
+            <length>500</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+      <!-- Island 1: X[-8500,-8000] Y[-18000,-17500] -->
+      <visual name="island_1">
+        <pose>-8250 -17750 250 0 0 0</pose>
+        <geometry><box><size>500 500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="island_1_col">
+        <pose>-8250 -17750 250 0 0 0</pose>
+        <geometry><box><size>500 500 500</size></box></geometry>
+      </collision>
+
+      <!-- Island 2: X[2000,3000] Y[-17500,-16500] -->
+      <visual name="island_2">
+        <pose>2500 -17000 250 0 0 0</pose>
+        <geometry><box><size>1000 1000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="island_2_col">
+        <pose>2500 -17000 250 0 0 0</pose>
+        <geometry><box><size>1000 1000 500</size></box></geometry>
+      </collision>
+
+      <!-- Island 3: X[5500,6500] Y[-17500,-16500] -->
+      <visual name="island_3">
+        <pose>6000 -17000 250 0 0 0</pose>
+        <geometry><box><size>1000 1000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="island_3_col">
+        <pose>6000 -17000 250 0 0 0</pose>
+        <geometry><box><size>1000 1000 500</size></box></geometry>
+      </collision>
+
+      <!-- Island 4: X[-1500,-1000] Y[-17000,-16500] -->
+      <visual name="island_4">
+        <pose>-1250 -16750 250 0 0 0</pose>
+        <geometry><box><size>500 500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="island_4_col">
+        <pose>-1250 -16750 250 0 0 0</pose>
+        <geometry><box><size>500 500 500</size></box></geometry>
+      </collision>
+
+      <!-- Island 5: X[7500,8500] Y[-16000,-15000] -->
+      <visual name="island_5">
+        <pose>8000 -15500 250 0 0 0</pose>
+        <geometry><box><size>1000 1000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="island_5_col">
+        <pose>8000 -15500 250 0 0 0</pose>
+        <geometry><box><size>1000 1000 500</size></box></geometry>
+      </collision>
+
+      <!-- Island 6: X[-9000,-8500] Y[-15500,-15000] -->
+      <visual name="island_6">
+        <pose>-8750 -15250 250 0 0 0</pose>
+        <geometry><box><size>500 500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="island_6_col">
+        <pose>-8750 -15250 250 0 0 0</pose>
+        <geometry><box><size>500 500 500</size></box></geometry>
+      </collision>
+
+      <!-- Island 7: X[-1000,-500] Y[-14500,-14000] -->
+      <visual name="island_7">
+        <pose>-750 -14250 250 0 0 0</pose>
+        <geometry><box><size>500 500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="island_7_col">
+        <pose>-750 -14250 250 0 0 0</pose>
+        <geometry><box><size>500 500 500</size></box></geometry>
+      </collision>
+
+      <!-- Island 8: X[1500,2500] Y[-14500,-13500] -->
+      <visual name="island_8">
+        <pose>2000 -14000 250 0 0 0</pose>
+        <geometry><box><size>1000 1000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="island_8_col">
+        <pose>2000 -14000 250 0 0 0</pose>
+        <geometry><box><size>1000 1000 500</size></box></geometry>
+      </collision>
+
+      <!-- ============================================================ -->
+      <!-- STANDALONE RECTANGULAR ISLAND in letter area                 -->
+      <!-- Loop 5: X[-7000,-5500] Y[-5000,-1500]                       -->
+      <!-- ============================================================ -->
+      <visual name="rect_island">
+        <pose>-6250 -3250 250 0 0 0</pose>
+        <geometry><box><size>1500 3500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="rect_island_col">
+        <pose>-6250 -3250 250 0 0 0</pose>
+        <geometry><box><size>1500 3500 500</size></box></geometry>
+      </collision>
+
+      <!-- ============================================================ -->
+      <!-- L-SHAPED ISLAND (Loop 8)                                     -->
+      <!-- Pts: (-1500,-5000),(-1500,-1500),(-500,-5000),              -->
+      <!--      (-500,-2500),(1000,-2500),(1000,-1500)                  -->
+      <!-- Decomposed as: vertical bar + horizontal extension            -->
+      <!-- ============================================================ -->
+
+      <!-- L vertical: X[-1500,-500] Y[-5000,-1500] -->
+      <visual name="L_vert">
+        <pose>-1000 -3250 250 0 0 0</pose>
+        <geometry><box><size>1000 3500 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="L_vert_col">
+        <pose>-1000 -3250 250 0 0 0</pose>
+        <geometry><box><size>1000 3500 500</size></box></geometry>
+      </collision>
+
+      <!-- L horizontal arm: X[-500,1000] Y[-2500,-1500] -->
+      <visual name="L_horiz">
+        <pose>250 -2000 250 0 0 0</pose>
+        <geometry><box><size>1500 1000 500</size></box></geometry>
+        <material><ambient>0.6 0.6 0.8 1</ambient><diffuse>0.6 0.6 0.8 1</diffuse></material>
+      </visual>
+      <collision name="L_horiz_col">
+        <pose>250 -2000 250 0 0 0</pose>
+        <geometry><box><size>1500 1000 500</size></box></geometry>
+      </collision>
+
+    </link>
+  </model>
+</sdf>

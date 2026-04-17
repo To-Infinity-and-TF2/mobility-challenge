@@ -1,0 +1,269 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <world name="final_arena">
+
+    <physics name="1ms" type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <plugin name="ignition::gazebo::systems::Physics" filename="ignition-gazebo-physics-system"/>
+    <plugin name="ignition::gazebo::systems::UserCommands" filename="ignition-gazebo-user-commands-system"/>
+    <plugin name="ignition::gazebo::systems::SceneBroadcaster" filename="ignition-gazebo-scene-broadcaster-system"/>
+
+    <plugin name="ignition::gazebo::systems::Sensors" filename="ignition-gazebo-sensors-system">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin name="ignition::gazebo::systems::Imu" filename="ignition-gazebo-imu-system"/>
+
+
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <!--<atmosphere type="adiabatic"/>-->
+  <!--
+    <scene>
+      <ambient>0.08 0.10 0.15 1</ambient>
+      <background>0.02 0.03 0.05 1</background>
+      <shadows>true</shadows>
+      <sky>
+        <clouds>false</clouds>
+      </sky>
+    </scene>
+    -->
+    <scene>
+      <ambient>0.06 0.08 0.12 1</ambient>
+      <background>0.02 0.03 0.05 1</background>
+      <shadows>true</shadows>
+      <sky>
+        <enable>false</enable>
+      </sky>
+    </scene>
+
+  
+    
+    <include>
+      <uri>model://arena</uri>
+      <name>arena</name>
+      <pose>0 0 6.25 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://ground_plane</uri>
+      <name>ground_plane</name>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+    
+    <include>
+      <uri>model://aruco_0</uri>
+      <name>aruco_0</name>
+      <pose>-4.490480 -2.519260 0.237892 1.57 0 -1.570000</pose>
+    </include>
+    
+
+    <include>
+      <uri>model://aruco_1</uri>
+      <name>aruco_1</name>
+      <pose>8.997920 4.904980 0.237892 0 0 3.141590</pose>
+    </include>
+
+    <include>
+      <uri>model://aruco_2</uri>
+      <name>aruco_2</name>
+      <pose>9.928880 -8.459880 0.238104 0 0 3.141590</pose>
+    </include>
+
+    <include>
+      <uri>model://aruco_3</uri>
+      <name>aruco_3</name>
+      <pose>-6.252990 5.472760 0.237892 0 0 -1.570000</pose>
+    </include>
+
+    <include>
+      <uri>model://aruco_4</uri>
+      <name>aruco_4</name>
+      <pose>-6.389760 12.937400 0.238257 0 0 -1.570000</pose>
+    </include>
+
+    <include>
+      <uri>model://aruco_5</uri>
+      <name>aruco_5</name>
+      <pose>5.982410 12.934400 0.237892 0 0 -1.570000</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_1</name>
+      <pose>0.034026 -14.237400 0.002942 -3.141540 -1.570000 1.570000</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_2</name>
+      <pose>-0.753714 -8.516400 0.240723 -1.570000 0.000000 -1.570000</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_3</name>
+      <pose>-1.242350 -11.019200 0.238732 0 0 -1.570010</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_4</name>
+      <pose>-7.995950 0.345828 0.239162 -1.570000 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_5</name>
+      <pose>-4.511390 5.063790 0.240723 -1.570000 0 -3.141590</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_6</name>
+      <pose>-1.508650 1.317100 0.238732 0 0 3.141590</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_7</name>
+      <pose>-1.510670 1.241200 0.238732 0 0 3.141590</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_8</name>
+      <pose>7.996550 1.673730 0.240723 -1.570000 0 -3.141590</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_9</name>
+      <pose>4.317710 5.478720 0.240723 -1.570000 0 -1.570000</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_10</name>
+      <pose>8.993990 5.514780 0.240723 1.57000 0 -3.141590</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_11</name>
+      <pose>5.154020 12.917500 0.240723 1.57000 0 -1.570000</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_12</name>
+      <pose>-9.943610 10.583900 0.239162 -1.57000 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_13</name>
+      <pose>-8.410080 14.576000 0.240723 -1.570000 0 -1.570000</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_14</name>
+      <pose>9.942630 -7.557570 0.240723 -1.570000 0 -3.141590</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_15</name>
+      <pose>-3.013570 -9.977950 0.239162 -1.570000 0 0.000000</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_16</name>
+      <pose>7.988170 -13.006300 0.241017 -1.570000 0 1.570000</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_17</name>
+      <pose>4.052360 -11.572100 0.239162 -1.570000 0 0.000000</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_18</name>
+      <pose>4.816020 -7.013220 0.240723 1.570000 0 -1.570000</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_19</name>
+      <pose>4.816020 -7.013220 0.240723 1.570000 0 -1.570000</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_20</name>
+      <pose>5.630170 1.956310 0.240723 1.570000 0 -1.570000</pose>
+    </include>
+
+    <include>
+      <uri>model://direction_sign</uri>
+      <name>arrow_21</name>
+      <pose>9.637170 3.958830 0.240723 1.570000 0 -1.570000</pose>
+    </include>
+
+
+    <include>
+      <uri>model://stop_sign</uri>
+      <name>stop_sign</name>
+      <pose>-4.007440 14.021700 0.237892 0 0 3.141590</pose>
+    </include>
+
+    <include>
+      <uri>model://stop_sign</uri>
+      <name>false_goal</name>
+      <pose>7.945990 14.554900 0.469528 0 0 -1.570000</pose>
+    </include>
+    
+
+    <!--
+    <include>
+      <uri>model://arena_2</uri>
+      <name>arena_2</name>      
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+    -->
+    
+    <!--
+     <include>
+      <uri>model://arena_3</uri>
+      <name>arena_3</name>      
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+    -->
+   
+    
+
+  
+
+    <light name="sun" type="directional">
+      <pose>100 10 10 0 0 0</pose>
+      <cast_shadows>true</cast_shadows>
+      <intensity>1</intensity>
+      <direction>-0.5 0.1 -0.9</direction>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>0.5 0.5 0.5 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <linear>0.01</linear>
+        <constant>0.9</constant>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+    </light>
+  </world>
+</sdf>

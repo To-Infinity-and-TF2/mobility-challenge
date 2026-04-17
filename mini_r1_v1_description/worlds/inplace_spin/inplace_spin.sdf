@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sdf version="1.7">
+  <model name="inplace_spin">
+    <static>true</static>
+
+    <link name="inplace_spin">
+      <visual name="inplace_spin_visual">
+        <geometry>
+          <mesh>
+            <uri>inplace_spin.dae</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </visual>
+
+      <collision name="inplace_spin_collision">
+        <geometry>
+          <mesh>
+            <uri>inplace_spin.dae</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

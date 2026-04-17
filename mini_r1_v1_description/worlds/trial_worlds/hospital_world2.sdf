@@ -1,0 +1,605 @@
+<?xml version="1.0" ?>
+<!--
+╔═══════════════════════════════════════════════════════════════════════╗
+║  HOSPITAL NAVIGATION WORLD  —  UGV Hackathon                         ║
+║  ROS 2 Humble + Ignition Fortress                                     ║
+╠═══════════════════════════════════════════════════════════════════════╣
+║  ROBOT SPAWN:  (-14, 0, 0.07)  facing +X (east)                      ║
+║                                                                        ║
+║  INTENDED PATH:                                                        ║
+║   [Start] ──east──► [Corridor] ──east──► [Intersection]              ║
+║                                               │ north                 ║
+║                                          [Maze entrance]             ║
+║                                               │ snake east            ║
+║                                          [Goal zone]                  ║
+║                                                                        ║
+║  TRAPS (both branch south at intersection):                            ║
+║   • Loop dead-end corridor  (x:-7→-1, y:-6→-1.5)                     ║
+║   • False goal room         (x: 1→ 7, y:-6→-1.5)                     ║
+║                                                                        ║
+║  ARUCO MARKERS — all on walls the moving robot directly faces:        ║
+║   ID 0 — start zone EAST wall (x=-9.93) robot faces it exiting start ║
+║   ID 1 — corridor NORTH wall  (x=-4)    robot scans left going east  ║
+║   ID 2 — baffle-A EAST face   (x=4.04)  robot walks straight toward  ║
+║   ID 3 — goal zone NORTH wall (y=7.93)  robot enters south, faces N  ║
+║                                                                        ║
+║  DIRECTION SIGNS (6):                                                  ║
+║   FORWARD         — corridor north wall  at x=-8                     ║
+║   LEFT            — intersection west wall north section at y=+4     ║
+║   RIGHT (mislead) — intersection west wall south section at y=-3     ║
+║   INPLACE ROTATE  — baffle-A east face at y=5.5                      ║
+║   STOP (dead-end) — baffle-C west face at y=2.5                      ║
+║   GOAL            — baffle-C east face at y=6.5                      ║
+║                                                                        ║
+║  COLOUR CODE FOR SIGNS (coloured boxes — add PNG textures later):    ║
+║   CYAN    = FORWARD                                                   ║
+║   YELLOW  = LEFT                                                      ║
+║   ORANGE  = RIGHT (misleading)                                        ║
+║   MAGENTA = INPLACE ROTATION                                          ║
+║   RED     = STOP                                                      ║
+║   BLUE    = GOAL                                                      ║
+╚═══════════════════════════════════════════════════════════════════════╝
+-->
+<sdf version="1.6">
+  <world name="hospital_world">
+
+    <!-- ═══ PLUGINS ═══ -->
+    <plugin filename="ignition-gazebo-physics-system"
+            name="ignition::gazebo::systems::Physics"/>
+    <plugin filename="ignition-gazebo-user-commands-system"
+            name="ignition::gazebo::systems::UserCommands"/>
+    <plugin filename="ignition-gazebo-scene-broadcaster-system"
+            name="ignition::gazebo::systems::SceneBroadcaster"/>
+    <plugin filename="ignition-gazebo-sensors-system"
+            name="ignition::gazebo::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <!-- ═══ LIGHTING ═══ -->
+    <light name="sun" type="directional">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 20 0 0 0</pose>
+      <diffuse>0.9 0.9 0.88 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>-0.4 0.1 -0.9</direction>
+    </light>
+    <light name="light_start" type="point">
+      <pose>-13 0 2.8 0 0 0</pose>
+      <diffuse>1 1 0.95 1</diffuse>
+      <attenuation><range>10</range><linear>0.12</linear></attenuation>
+    </light>
+    <light name="light_corridor" type="point">
+      <pose>-5 0 2.8 0 0 0</pose>
+      <diffuse>1 1 0.95 1</diffuse>
+      <attenuation><range>12</range><linear>0.10</linear></attenuation>
+    </light>
+    <light name="light_intersect" type="point">
+      <pose>0 0 2.8 0 0 0</pose>
+      <diffuse>1 1 0.95 1</diffuse>
+      <attenuation><range>10</range><linear>0.12</linear></attenuation>
+    </light>
+    <light name="light_maze" type="point">
+      <pose>6 4.75 2.8 0 0 0</pose>
+      <diffuse>1 1 0.92 1</diffuse>
+      <attenuation><range>12</range><linear>0.12</linear></attenuation>
+    </light>
+    <light name="light_goal" type="point">
+      <pose>12 6.0 2.8 0 0 0</pose>
+      <diffuse>0.9 0.95 1.0 1</diffuse>
+      <attenuation><range>8</range><linear>0.15</linear></attenuation>
+    </light>
+
+    <!-- ═══ GROUND ═══ -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="c">
+          <geometry><plane><normal>0 0 1</normal><size>50 30</size></plane></geometry>
+        </collision>
+        <visual name="v">
+          <geometry><plane><normal>0 0 1</normal><size>50 30</size></plane></geometry>
+          <material><ambient>0.88 0.88 0.88 1</ambient><diffuse>0.88 0.88 0.88 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ═══════════════════════════════════════════════════
+         ZONE 0 — START ROOM
+         x(-16 → -10),  y(-3 → +3)
+         Door gap in east wall: y(-0.9 → +0.9)
+         Robot spawns at (-14, 0, 0.07)
+    ═══════════════════════════════════════════════════ -->
+
+    <model name="sw_west">
+      <static>true</static><pose>-16 0 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 6.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 6.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="sw_south">
+      <static>true</static><pose>-13 -3 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>6.15 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>6.15 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="sw_north">
+      <static>true</static><pose>-13 3 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>6.15 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>6.15 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- East wall south piece: y(-3 → -0.9), center=-1.95, length=2.1 -->
+    <model name="sw_east_south">
+      <static>true</static><pose>-10 -1.95 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 2.1 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 2.1 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- East wall north piece: y(+0.9 → +3), center=+1.95, length=2.1 -->
+    <model name="sw_east_north">
+      <static>true</static><pose>-10 1.95 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 2.1 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 2.1 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Hospital bed (south side — out of path) -->
+    <model name="hosp_bed">
+      <static>true</static><pose>-14 -2.0 0.4 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>1.9 0.85 0.8</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>1.9 0.85 0.8</size></box></geometry>
+          <material><ambient>0.82 0.88 1.0 1</ambient><diffuse>0.82 0.88 1.0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="iv_stand">
+      <static>true</static><pose>-12.8 -1.7 0.6 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><cylinder><radius>0.05</radius><length>1.2</length></cylinder></geometry></collision>
+        <visual name="v"><geometry><cylinder><radius>0.05</radius><length>1.2</length></cylinder></geometry>
+          <material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ARUCO ID 0: east wall inside face, robot drives toward it -->
+    <model name="aruco_0">
+      <static>true</static><pose>-9.93 0 1.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.04 0.25 0.25</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.04 0.25 0.25</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ═══════════════════════════════════════════════════
+         ZONE 1 — MAIN CORRIDOR
+         x(-10 → 0),  y(-1.5 → +1.5)
+         Robot drives east. Signs/markers on north wall face south.
+    ═══════════════════════════════════════════════════ -->
+
+    <model name="cw_south">
+      <static>true</static><pose>-5 -1.5 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>10.15 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>10.15 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="cw_north">
+      <static>true</static><pose>-5 1.5 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>10.15 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>10.15 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- SIGN 1: FORWARD (cyan) — north wall, faces south toward robot -->
+    <model name="sign_forward">
+      <static>true</static><pose>-8 1.43 1.5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.45 0.04 0.3</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.45 0.04 0.3</size></box></geometry>
+          <material><ambient>0.0 0.82 0.82 1</ambient><diffuse>0.0 0.82 0.82 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ARUCO ID 1: north wall, faces south toward robot -->
+    <model name="aruco_1">
+      <static>true</static><pose>-4 1.43 1.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.25 0.04 0.25</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.25 0.04 0.25</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Med trolleys as corridor obstacles -->
+    <model name="trolley_1">
+      <static>true</static><pose>-6.5 0.6 0.45 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.65 0.38 0.9</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.65 0.38 0.9</size></box></geometry>
+          <material><ambient>0.72 0.72 0.86 1</ambient><diffuse>0.72 0.72 0.86 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="trolley_2">
+      <static>true</static><pose>-2.5 -0.55 0.45 0 0 0.4</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.65 0.38 0.9</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.65 0.38 0.9</size></box></geometry>
+          <material><ambient>0.72 0.72 0.86 1</ambient><diffuse>0.72 0.72 0.86 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ═══════════════════════════════════════════════════
+         ZONE 2 — INTERSECTION CORRIDOR
+         x(-1 → +1),  y(-6 → +6)
+         Robot arrives from west at y=0.
+         West wall has signs: LEFT (north) and RIGHT-mislead (south).
+         East wall present only on south half (trap side).
+         North half is open — connects directly into maze.
+    ═══════════════════════════════════════════════════ -->
+
+    <!-- West wall south: y(-6 → -1.5), center=-3.75, length=4.5 -->
+    <model name="iw_west_south">
+      <static>true</static><pose>-1 -3.75 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 4.5 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 4.5 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- West wall north: y(+1.5 → +6), center=+3.75, length=4.5 -->
+    <model name="iw_west_north">
+      <static>true</static><pose>-1 3.75 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 4.5 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 4.5 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- East wall south only (traps are closed): y(-6 → -1.5) -->
+    <model name="iw_east_south">
+      <static>true</static><pose>1 -3.75 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 4.5 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 4.5 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- North cap -->
+    <model name="iw_north">
+      <static>true</static><pose>0 6 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>2.15 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>2.15 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- South cap -->
+    <model name="iw_south">
+      <static>true</static><pose>0 -6 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>2.15 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>2.15 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- SIGN 2: LEFT (yellow) — west wall north section, faces east toward robot -->
+    <model name="sign_left">
+      <static>true</static><pose>-0.93 4.0 1.5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.04 0.45 0.3</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.04 0.45 0.3</size></box></geometry>
+          <material><ambient>0.95 0.85 0.0 1</ambient><diffuse>0.95 0.85 0.0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- SIGN 3: RIGHT misleading (orange) — west wall south section, faces east -->
+    <model name="sign_right_mislead">
+      <static>true</static><pose>-0.93 -3.0 1.5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.04 0.45 0.3</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.04 0.45 0.3</size></box></geometry>
+          <material><ambient>0.95 0.50 0.0 1</ambient><diffuse>0.95 0.50 0.0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ═══════════════════════════════════════════════════
+         TRAP A — LOOP DEAD-END CORRIDOR
+         x(-7 → -1),  y(-6 → -1.5)
+         U-shaped corridor — divider wall creates two channels.
+         Robot enters from intersection heading south,
+         hits the south wall, must backtrack (recovery behavior).
+    ═══════════════════════════════════════════════════ -->
+
+    <model name="lw_west">
+      <static>true</static><pose>-7 -3.75 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 4.65 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 4.65 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="lw_south">
+      <static>true</static><pose>-4 -6 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>6.15 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>6.15 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- Divider: x(-7 → -3), y=-4, creates two 1.5m-wide channels -->
+    <model name="loop_divider">
+      <static>true</static><pose>-5 -4 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>4.0 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>4.0 0.15 2.5</size></box></geometry>
+          <material><ambient>0.92 0.92 0.92 1</ambient><diffuse>0.92 0.92 0.92 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ═══════════════════════════════════════════════════
+         TRAP B — FALSE GOAL ROOM
+         x(+1 → +7),  y(-6 → -1.5)
+         Misleading sign leads robot here. Green floor marker.
+    ═══════════════════════════════════════════════════ -->
+
+    <model name="fg_east">
+      <static>true</static><pose>7 -3.75 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 4.65 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 4.65 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="fg_south">
+      <static>true</static><pose>4 -6 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>6.15 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>6.15 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- False goal floor marker (GREEN = wrong) -->
+    <model name="false_goal_floor">
+      <static>true</static><pose>4 -3.75 0.02 0 0 0</pose>
+      <link name="link">
+        <visual name="v"><geometry><box><size>2.0 2.0 0.04</size></box></geometry>
+          <material><ambient>0.15 0.75 0.15 1</ambient><diffuse>0.15 0.75 0.15 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ═══════════════════════════════════════════════════
+         ZONE 3 — MAZE / NARROW PASSAGE
+         x(+1 → +12),  y(+1.5 → +8)
+
+         Baffles create a SNAKE path (all passages 1.8 m wide):
+
+         BAFFLE A  x=4,  y(1.5 → 6.2)  — gap TOP    y(6.2→8)
+         BAFFLE B  x=7,  y(3.3 → 8.0)  — gap BOTTOM y(1.5→3.3)
+         BAFFLE C  x=10, y(1.5 → 5.5)  — gap TOP    y(5.5→8)
+
+         Snake:
+           enter west of baffle-A (y=1.5→8 open from intersection)
+           ─► head east, blocked by baffle-A
+           ─► go north through gap-A (y=6.2→8)
+           ─► head east above baffle-B
+           ─► go south through gap-B (y=1.5→3.3)
+           ─► head east, see STOP sign on baffle-C dead-end
+           ─► go north to gap-C (y=5.5→8), see GOAL sign
+           ─► head east into goal zone
+    ═══════════════════════════════════════════════════ -->
+
+    <!-- North boundary -->
+    <model name="mw_north">
+      <static>true</static><pose>6.5 8 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>11.15 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>11.15 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- South boundary: x(0 → 12) at y=+1.5 (extends corridor north wall east) -->
+    <model name="mw_south_ext">
+      <static>true</static><pose>6 1.5 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>12.15 0.15 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>12.15 0.15 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- BAFFLE A: x=4, y(1.5 → 6.2), center=3.85, length=4.7 -->
+    <model name="baffle_a">
+      <static>true</static><pose>4 3.85 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 4.7 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 4.7 2.5</size></box></geometry>
+          <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>0.9 0.9 0.9 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ARUCO ID 2: east face of baffle-A, at y=3.0, z=1.2
+         Robot heading east walks straight into baffle-A — marker is dead ahead -->
+    <model name="aruco_2">
+      <static>true</static><pose>4.04 3.0 1.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.04 0.25 0.25</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.04 0.25 0.25</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- SIGN 4: INPLACE ROTATION (magenta) — east face of baffle-A at y=5.5
+         Above ArUco — tells robot to spin and find the gap at the top -->
+    <model name="sign_rotate">
+      <static>true</static><pose>4.04 5.5 1.5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.04 0.4 0.3</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.04 0.4 0.3</size></box></geometry>
+          <material><ambient>0.85 0.0 0.85 1</ambient><diffuse>0.85 0.0 0.85 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- BAFFLE B: x=7, y(3.3 → 8.0), center=5.65, length=4.7 -->
+    <model name="baffle_b">
+      <static>true</static><pose>7 5.65 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 4.7 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 4.7 2.5</size></box></geometry>
+          <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>0.9 0.9 0.9 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- BAFFLE C: x=10, y(1.5 → 5.5), center=3.5, length=4.0 -->
+    <model name="baffle_c">
+      <static>true</static><pose>10 3.5 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 4.0 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 4.0 2.5</size></box></geometry>
+          <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>0.9 0.9 0.9 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- SIGN 5: STOP (red) — west face of baffle-C, at y=2.5 (dead-end side)
+         Robot coming east below baffle-C sees this — dead end, must recover -->
+    <model name="sign_stop">
+      <static>true</static><pose>9.93 2.5 1.5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.04 0.4 0.3</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.04 0.4 0.3</size></box></geometry>
+          <material><ambient>0.92 0.1 0.1 1</ambient><diffuse>0.92 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- SIGN 6: GOAL (blue) — east face of baffle-C at y=6.5 (gap side)
+         Robot going north through gap sees this — confirms go east to goal -->
+    <model name="sign_goal">
+      <static>true</static><pose>10.04 6.5 1.5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.04 0.4 0.3</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.04 0.4 0.3</size></box></geometry>
+          <material><ambient>0.1 0.25 0.92 1</ambient><diffuse>0.1 0.25 0.92 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Maze scatter obstacles -->
+    <model name="maze_box_1">
+      <static>true</static><pose>5.5 7.0 0.3 0 0 0.3</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.45 0.45 0.6</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.45 0.45 0.6</size></box></geometry>
+          <material><ambient>0.4 0.4 0.4 1</ambient><diffuse>0.4 0.4 0.4 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="maze_box_2">
+      <static>true</static><pose>8.5 2.3 0.3 0 0 0.6</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.45 0.45 0.6</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.45 0.45 0.6</size></box></geometry>
+          <material><ambient>0.4 0.4 0.4 1</ambient><diffuse>0.4 0.4 0.4 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ═══════════════════════════════════════════════════
+         ZONE 4 — TRUE GOAL ZONE
+         x(+10 → +14),  y(+1.5 → +8)
+         Entered from west through gap-C (y=5.5→8).
+         Blue floor. ArUco ID 3 on north wall facing south.
+    ═══════════════════════════════════════════════════ -->
+
+    <model name="gw_east">
+      <static>true</static><pose>14 4.75 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.15 6.65 2.5</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.15 6.65 2.5</size></box></geometry>
+          <material><ambient>0.95 0.95 0.95 1</ambient><diffuse>0.95 0.95 0.95 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- True goal floor (BLUE = correct) -->
+    <model name="true_goal_floor">
+      <static>true</static><pose>12 6.5 0.02 0 0 0</pose>
+      <link name="link">
+        <visual name="v"><geometry><box><size>2.5 2.0 0.04</size></box></geometry>
+          <material><ambient>0.1 0.25 0.92 1</ambient><diffuse>0.1 0.25 0.92 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ARUCO ID 3: south face of north wall (y=7.93), robot enters from south and faces it -->
+    <model name="aruco_3">
+      <static>true</static><pose>12 7.93 1.2 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.25 0.04 0.25</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.25 0.04 0.25</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ═══ CEILING (visual only) ═══ -->
+    <model name="ceiling">
+      <static>true</static><pose>0 1 2.5 0 0 0</pose>
+      <link name="link">
+        <visual name="v">
+          <geometry><box><size>32 18 0.04</size></box></geometry>
+          <material><ambient>0.97 0.97 0.97 1</ambient><diffuse>0.97 0.97 0.97 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>

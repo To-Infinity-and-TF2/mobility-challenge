@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.7">
+  <model name="arena">
+    <static>true</static>
+    <link name="arena_link">
+      <pose>0 0 0 0 0 0</pose>
+
+      <visual name="arena_visual">
+        <geometry>
+          <mesh>
+            <uri>model://ground_plane/ground_plane_2.stl</uri>
+            <scale>0.67 0.76 1</scale>
+          </mesh>
+        </geometry>
+      </visual>
+
+      <collision name="arena_collision">
+        <geometry>
+          <mesh>
+            <uri>model://ground_plane/ground_plane_2.stl</uri>
+            <scale>0.67 0.76 1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>
